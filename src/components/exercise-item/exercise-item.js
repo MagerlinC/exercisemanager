@@ -25,7 +25,7 @@ function ExerciseItem({
         (selected ? " selected" : "") +
         (completed ? " completed" : "")
       }
-      onClick={onSelection}
+      onClick={completed ? void 0 : onSelection}
     >
       <div className={"id-and-title"}>
         <span className={"id"}>{exercise.id}</span> -{" "}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
-import { getExercises, updateExerciseStatus } from "./exercise_service";
+import { getExercises, updateExercise } from "./exercise_service";
 import ExerciseItem from "./components/exercise-item/exercise-item";
 import { Droppable, Draggable, DragDropContext } from "react-virtualized-dnd";
 import Toaster from "./components/toaster/toaster";
@@ -22,9 +22,6 @@ function App() {
   const exerciseListName = "Exercises";
   const myListName = "My List";
 
-  const sortById = (a, b) => {
-    return a.sortOrder - b.sortOrder;
-  };
   // Fetch exercises on mount
   useEffect(() => {
     fetchData();
@@ -44,24 +41,48 @@ function App() {
     setSelectedExercises(curExercises);
   };
 
+  const sortBySortOrder = (a, b) => {
+    return a.sortOrder - b.sortOrder;
+  };
+
   const fetchData = () => {
     getExercises((response) => {
-      const sortedResponse = response.sort(sortById);
+      const sortedResponse = response.sort(sortBySortOrder);
       setExercises(sortedResponse);
     });
   };
 
+  const getExerciseFromId = (id) => {
+    return exercises.find((ex) => ex["firestore_id"] === id);
+  };
+
   const onExerciseDrag = (source, destinationDroppableId, placeholderId) => {
-    const status = destinationDroppableId === "my-list" ? "chosen" : "";
+    const sameCol = source.droppableId === destinationDroppableId;
+    const movedExercise = getExerciseFromId(source.draggableId);
+    const targetExercise = getExerciseFromId(placeholderId);
+    // We want to know if we have moved an exercise from below or above the target
+    const movedUp = movedExercise.sortOrder > targetExercise.sortOrder;
+    const status = sameCol
+      ? null
+      : destinationDroppableId === "my-list"
+      ? "chosen"
+      : "";
     // Move all selected items
     const selectedItems = [source.draggableId].concat(
       selectedExercises.map((exercise) => exercise["firestore_id"])
     );
-    updateExerciseStatus(selectedItems, status, fetchData);
+    updateExercise(
+      selectedItems,
+      status,
+      targetExercise.sortOrder,
+      movedUp,
+      fetchData
+    );
   };
 
   const onExerciseComplete = (exercise) => {
-    updateExerciseStatus([exercise["firestore_id"]], "completed", fetchData);
+    const status = exercise.status === "completed" ? "chosen" : "completed";
+    updateExercise([exercise["firestore_id"]], status, null, null, fetchData);
   };
 
   const openExercise = (exercise) => {
@@ -177,7 +198,7 @@ function App() {
                   dragAndDropGroup={dragAndDropGroupName}
                   draggableId={exercise["firestore_id"]}
                   key={"exercise-" + exercise.id}
-                  dragDisabled={false}
+                  disabled={exercise.status === "completed"}
                 >
                   <ExerciseItem
                     onExerciseOpen={openExercise}
