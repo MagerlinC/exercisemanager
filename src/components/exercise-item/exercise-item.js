@@ -2,19 +2,36 @@ import React, { useState } from "react";
 import CheckMark from "../check-mark/check-mark";
 import "./exercise-item.scss";
 // We generically map over exercise properties here, because we might want to extend the list of properties
-function ExerciseItem({ exercise, selected, onSelection, onExerciseComplete }) {
+function ExerciseItem({
+  exercise,
+  selected,
+  onSelection,
+  onExerciseComplete,
+  onExerciseOpen,
+}) {
   const completed = exercise.status === "completed";
+
+  const openExercise = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onExerciseOpen(exercise);
+  };
+
   return (
     <div
+      tabIndex="0"
       className={
         "exercise-item" +
         (selected ? " selected" : "") +
         (completed ? " completed" : "")
       }
+      onClick={onSelection}
     >
-      <div tabIndex="0" onClick={onSelection} className={"id-and-title"}>
+      <div className={"id-and-title"}>
         <span className={"id"}>{exercise.id}</span> -{" "}
-        <span className={"title"}>{exercise.title}</span>
+        <span className={"title"} onClick={openExercise} tabIndex="0">
+          {exercise.title}
+        </span>
       </div>
       <div className={"tags"}>
         {exercise.tags.map((tag) => (
@@ -23,7 +40,12 @@ function ExerciseItem({ exercise, selected, onSelection, onExerciseComplete }) {
           </div>
         ))}
       </div>
-      <img className={"image"} alt="exercise-image" src={exercise.image} />
+      <img
+        title={"Difficulty: " + exercise.difficulty}
+        className={"image"}
+        alt="exercise-image"
+        src={exercise.image}
+      />
       <CheckMark ticked={completed} onTickedChange={onExerciseComplete} />
     </div>
   );

@@ -11,6 +11,12 @@
   }
   .id-and-title {
     flex-grow: 1;
+    .title {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   .image {
     width: 24px;

@@ -6,12 +6,14 @@ import { Droppable, Draggable, DragDropContext } from "react-virtualized-dnd";
 import Toaster from "./components/toaster/toaster";
 import Logo from "./assets/logo.svg";
 import Search from "./components/search/search";
+import ExerciseModal from "./components/exercise-modal/exercise-modal";
 
 function App() {
   const [exercises, setExercises] = useState([]);
   const [searchFilter, setSearchFilter] = useState({ list: "", value: "" });
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [includeDone, setIncludeDone] = useState(true);
+  const [modalExercise, setModalExercise] = useState(null);
 
   const dragAndDropGroupName = "example";
   const exerciseListDroppableId = "exercise-list";
@@ -62,6 +64,10 @@ function App() {
     updateExerciseStatus([exercise["firestore_id"]], "completed", fetchData);
   };
 
+  const openExercise = (exercise) => {
+    setModalExercise(exercise);
+  };
+
   const myList = [];
   const unselectedExercises = [];
 
@@ -100,6 +106,10 @@ function App() {
     );
   };
 
+  const closeModal = () => {
+    setModalExercise(null);
+  };
+
   return (
     <div className="app">
       <Toaster
@@ -107,6 +117,10 @@ function App() {
         shown={selectedExercises.length > 0}
         contents={selectedExercises.length + " exercises selected"}
       />
+      {modalExercise && (
+        <ExerciseModal exercise={modalExercise} closeModal={closeModal} />
+      )}
+
       <DragDropContext
         onDragEnd={onExerciseDrag}
         dragAndDropGroup={dragAndDropGroupName}
@@ -134,6 +148,7 @@ function App() {
                   dragDisabled={false}
                 >
                   <ExerciseItem
+                    onExerciseOpen={openExercise}
                     onExerciseComplete={() => onExerciseComplete(exercise)}
                     selected={selectedExercises.find(
                       (e) => e.id === exercise.id
@@ -165,9 +180,8 @@ function App() {
                   dragDisabled={false}
                 >
                   <ExerciseItem
-                    onExerciseComplete={() =>
-                      onExerciseComplete(exercise["firestore_id"])
-                    }
+                    onExerciseOpen={openExercise}
+                    onExerciseComplete={() => onExerciseComplete(exercise)}
                     selected={selectedExercises.find(
                       (e) => e.id === exercise.id
                     )}
