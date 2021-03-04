@@ -3,15 +3,21 @@ import "./App.scss";
 import { getExercises } from "./exercise_service";
 import ExerciseItem from "./components/exercise-item/exercise-item";
 import { Droppable, Draggable, DragDropContext } from "react-virtualized-dnd";
-import Toaster from "./components/exercise-item/toaster/toaster";
+import Toaster from "./components/toaster/toaster";
+import Logo from "./assets/logo.svg";
+import Search from "./components/search/search";
 
 function App() {
   const [exercises, setExercises] = useState([]);
+  const [searchFilter, setSearchFilter] = useState({ list: "", value: "" });
   const [selectedExercises, setSelectedExercises] = useState([]);
 
   const dragAndDropGroupName = "example";
   const exerciseListDroppableId = "exercise-list";
   const myListDroppableId = "my-list";
+
+  const exerciseListName = "Exercises";
+  const myListName = "My List";
 
   const sortById = (a, b) => {
     return a.sortOrder - b.sortOrder;
@@ -25,11 +31,9 @@ function App() {
   }, []);
 
   const onExerciseSelection = (exercise) => {
-    console.log(exercise);
     const curExercises = [...selectedExercises];
     // Check if already selected
     const existingIndex = curExercises.findIndex((e) => e.id === exercise.id);
-    console.log(existingIndex);
     if (existingIndex >= 0) {
       // If already selected, remove
       curExercises.splice(existingIndex, 1);
@@ -44,36 +48,64 @@ function App() {
 
   const myList = [];
   const unselectedExercises = [];
+
+  // Check if search text matches title
+  const isMatchForFilter = (exercise, list) =>
+    searchFilter.value === "" ||
+    searchFilter.list !== list ||
+    (searchFilter.list === list &&
+      exercise.title.toLowerCase().includes(searchFilter.value.toLowerCase()));
+
   exercises.forEach((exercise) => {
     if (exercise.status === "chosen" || exercise.status === "completed") {
-      myList.push(exercise);
+      if (isMatchForFilter(exercise, myListName)) {
+        myList.push(exercise);
+      }
     } else {
-      unselectedExercises.push(exercise);
+      if (isMatchForFilter(exercise, exerciseListName)) {
+        unselectedExercises.push(exercise);
+      }
     }
   });
 
+  const onSearchChange = (listName, value) => {
+    setSearchFilter({
+      list: listName,
+      value: value,
+    });
+  };
+
   const makeListHeader = (listName) => {
-    return <div className={"list-header " + listName}>{listName}</div>;
+    return (
+      <div className={"list-header " + listName}>
+        <span className={"list-name"}>{listName}</span>
+        <Search onSearchChange={(val) => onSearchChange(listName, val)} />
+      </div>
+    );
   };
 
   return (
     <div className="app">
       <Toaster
+        hideOnTimeOut={false}
         shown={selectedExercises.length > 0}
-        contents={selectedExercises.length}
+        contents={selectedExercises.length + " exercises selected"}
       />
       <DragDropContext
         onDragEnd={onExerciseDrag}
         dragAndDropGroup={dragAndDropGroupName}
       >
-        <header className="app-header">MinLæring Exercises</header>
+        <header className="app-header">
+          <img className={"site-logo"} src={Logo} />
+          <span className={"site-title"}>MinLæring Exercises</span>
+        </header>
         <div className={"lists-wrapper"}>
           <div className={"exercise-list"}>
             <Droppable
-              listHeader={makeListHeader("Exercises")}
+              listHeader={makeListHeader(exerciseListName)}
               listHeaderHeight={60}
-              containerHeight={800}
-              elemHeight={40}
+              containerHeight={1200}
+              elemHeight={42}
               dragAndDropGroup={dragAndDropGroupName}
               droppableId={exerciseListDroppableId}
               key={exerciseListDroppableId}
@@ -100,10 +132,10 @@ function App() {
           </div>
           <div className={"my-list"}>
             <Droppable
-              listHeader={makeListHeader("My List")}
+              listHeader={makeListHeader(myListName)}
               listHeaderHeight={60}
-              containerHeight={800}
-              elemHeight={40}
+              containerHeight={1200}
+              elemHeight={42}
               dragAndDropGroup={dragAndDropGroupName}
               droppableId={myListDroppableId}
               key={myListDroppableId}

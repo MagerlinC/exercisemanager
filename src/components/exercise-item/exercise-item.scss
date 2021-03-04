@@ -1,5 +1,6 @@
 @import "node_modules/nord/src/sass/nord.scss";
 .exercise-item {
+  margin: 1px 0 1px 0;
   background-color: white;
   display: flex;
   flex-direction: row;
@@ -8,7 +9,22 @@
   &.selected {
     background-color: $nord9;
   }
+  .id-and-title {
+    flex-grow: 1;
+  }
   .image {
     width: 24px;
+    flex-grow: 0;
+  }
+  .tags {
+    display: flex;
+    flex-direction: row;
+    .tag {
+      font-size: 12px;
+      padding: 4px;
+      margin: 0 4px;
+      border-radius: 4px;
+      background-color: $nord13;
+    }
   }
 }

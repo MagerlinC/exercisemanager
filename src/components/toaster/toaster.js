@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./toaster.scss";
-function Toaster({ shown, contents }) {
+function Toaster({ shown, contents, hideOnTimeOut }) {
   const [showExitAnimation, setShowExitAnimation] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setShowExitAnimation(true), 3500);
+    if (shown && hideOnTimeOut) {
+      setTimeout(() => setShowExitAnimation(true), 3500);
+    }
   }, [shown]);
 
   return (
@@ -12,8 +14,8 @@ function Toaster({ shown, contents }) {
       {shown && (
         <div
           className={
-            "toaster-pop-up animated " +
-            (showExitAnimation ? " fadeOut" : " fadeIn")
+            "toaster-pop-up animate__animated animate__" +
+            (showExitAnimation ? "fadeOutDown" : "fadeInUp")
           }
         >
           {contents}
