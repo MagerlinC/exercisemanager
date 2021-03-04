@@ -34,6 +34,10 @@ function App() {
     }
   });
 
+  const makeListHeader = (listName) => {
+    return <div className={"list-header " + listName}>{listName}</div>;
+  };
+
   return (
     <div className="app">
       <DragDropContext
@@ -44,14 +48,17 @@ function App() {
         <div className={"lists-wrapper"}>
           <div className={"exercise-list"}>
             <Droppable
-              containerHeight={620}
-              elemHeight={50}
+              listHeader={makeListHeader("Exercises")}
+              listHeaderHeight={60}
+              containerHeight={800}
+              elemHeight={40}
               dragAndDropGroup={dragAndDropGroupName}
               droppableId={exerciseListDroppableId}
               key={exerciseListDroppableId}
             >
               {unselectedExercises.map((exercise) => (
                 <ExerciseItem
+                  key={"exercise-component-" + exercise.id}
                   dragAndDropGroupName={dragAndDropGroupName}
                   exercise={exercise}
                 />
@@ -60,6 +67,8 @@ function App() {
           </div>
           <div className={"my-list"}>
             <Droppable
+              listHeader={makeListHeader("My List")}
+              listHeaderHeight={60}
               containerHeight={800}
               elemHeight={40}
               dragAndDropGroup={dragAndDropGroupName}
@@ -68,6 +77,7 @@ function App() {
             >
               {myList.map((exercise) => (
                 <ExerciseItem
+                  key={"exercise-component-" + exercise.id}
                   dragAndDropGroupName={dragAndDropGroupName}
                   exercise={exercise}
                 />

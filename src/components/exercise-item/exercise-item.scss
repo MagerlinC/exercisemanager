@@ -1,9 +1,10 @@
 @import "node_modules/nord/src/sass/nord.scss";
 .exercise-item {
+  background: white;
   display: flex;
   flex-direction: row;
   padding: 8px;
-  border-bottom: 1px solid $nord0;
+  border: 1px solid $nord0;
   .image {
     width: 24px;
   }

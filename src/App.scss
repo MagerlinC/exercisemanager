@@ -16,9 +16,16 @@
   .lists-wrapper {
     display: flex;
     flex-direction: row;
+    .list-header {
+      max-height: 60px;
+      font-size: 24px;
+      text-align: center;
+      padding: 16px;
+    }
     .exercise-list,
     .my-list {
-      flex-grow: 0.5;
+      flex: 1;
+      margin: 18px;
     }
   }
 }

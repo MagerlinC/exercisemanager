@@ -6,8 +6,8 @@ function ExerciseItem({ exercise, dragAndDropGroupName }) {
   return (
     <Draggable
       dragAndDropGroup={dragAndDropGroupName}
-      draggableId={exercise.id}
-      key={exercise.id}
+      draggableId={"exercise-" + exercise.id}
+      key={"exercise-" + exercise.id}
       dragDisabled={false}
     >
       <div className={"exercise-item"}>
@@ -15,7 +15,7 @@ function ExerciseItem({ exercise, dragAndDropGroupName }) {
           <span className={"id"}>{exercise.id}</span> -{" "}
           <span className={"title"}>{exercise.title}</span>
         </div>
-        <image className={"image"} alt="exercise-image" src={exercise.image} />
+        <img className={"image"} alt="exercise-image" src={exercise.image} />
       </div>
     </Draggable>
   );
