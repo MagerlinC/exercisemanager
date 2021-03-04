@@ -1,6 +1,16 @@
 @import "node_modules/nord/src/sass/nord.scss";
+@import "variables.scss";
 
-$check-green: #a5eb78;
+button {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px;
+  outline: none;
+  border: 1px solid $nord0;
+  &:focus {
+    outline: none;
+  }
+}
 
 .app {
   font-family: "Rubik";

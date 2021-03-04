@@ -1,4 +1,5 @@
 @import "node_modules/nord/src/sass/nord.scss";
+@import "variables.scss";
 .slider {
   position: relative;
   .slider-elements {
@@ -21,7 +22,7 @@
     background-color: $nord4;
     transition: all 0.5s;
     &.set {
-      background-color: #a5eb78;
+      background-color: $check-green;
     }
   }
 }

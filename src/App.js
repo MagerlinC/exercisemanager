@@ -15,6 +15,7 @@ function App() {
   const [selectedExercises, setSelectedExercises] = useState([]);
   const [includeDone, setIncludeDone] = useState(true);
   const [modalExercise, setModalExercise] = useState(null);
+  const [createModalOpen, setCreateModalOpen] = useState(false);
 
   const dragAndDropGroupName = "example";
   const exerciseListDroppableId = "exercise-list";
@@ -156,8 +157,18 @@ function App() {
       {modalExercise && (
         <ExerciseModal exercise={modalExercise} closeModal={closeModal} />
       )}
+      {createModalOpen && (
+        <ExerciseModal
+          closeModal={() => setCreateModalOpen(false)}
+          creationMode={true}
+        />
+      )}
       {!modalExercise && (
-        <div title={"Create Exercise"} className={"create-exercise-btn"}>
+        <div
+          onClick={() => setCreateModalOpen(true)}
+          title={"Create Exercise"}
+          className={"create-exercise-btn"}
+        >
           <span className={"plus-icon"}>+</span>
         </div>
       )}
