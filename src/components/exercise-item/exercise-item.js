@@ -1,23 +1,15 @@
 import React, { useState } from "react";
 import "./exercise-item.scss";
-import { Draggable } from "react-virtualized-dnd";
 // We generically map over exercise properties here, because we might want to extend the list of properties
-function ExerciseItem({ exercise, dragAndDropGroupName }) {
+function ExerciseItem({ exercise }) {
   return (
-    <Draggable
-      dragAndDropGroup={dragAndDropGroupName}
-      draggableId={"exercise-" + exercise.id}
-      key={"exercise-" + exercise.id}
-      dragDisabled={false}
-    >
-      <div className={"exercise-item"}>
-        <div className={"id-and-title"}>
-          <span className={"id"}>{exercise.id}</span> -{" "}
-          <span className={"title"}>{exercise.title}</span>
-        </div>
-        <img className={"image"} alt="exercise-image" src={exercise.image} />
+    <div className={"exercise-item"}>
+      <div className={"id-and-title"}>
+        <span className={"id"}>{exercise.id}</span> -{" "}
+        <span className={"title"}>{exercise.title}</span>
       </div>
-    </Draggable>
+      <img className={"image"} alt="exercise-image" src={exercise.image} />
+    </div>
   );
 }
 export default ExerciseItem;

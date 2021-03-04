@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.scss";
 import { getExercises } from "./exercise_service";
 import ExerciseItem from "./components/exercise-item/exercise-item";
-import { Droppable, DragDropContext } from "react-virtualized-dnd";
+import { Droppable, Draggable, DragDropContext } from "react-virtualized-dnd";
 
 function App() {
   const [exercises, setExercises] = useState([]);
@@ -57,11 +57,18 @@ function App() {
               key={exerciseListDroppableId}
             >
               {unselectedExercises.map((exercise) => (
-                <ExerciseItem
-                  key={"exercise-component-" + exercise.id}
-                  dragAndDropGroupName={dragAndDropGroupName}
-                  exercise={exercise}
-                />
+                <Draggable
+                  dragAndDropGroup={dragAndDropGroupName}
+                  draggableId={"exercise-" + exercise.id}
+                  key={"exercise-" + exercise.id}
+                  dragDisabled={false}
+                >
+                  <ExerciseItem
+                    key={"exercise-component-" + exercise.id}
+                    dragAndDropGroupName={dragAndDropGroupName}
+                    exercise={exercise}
+                  />
+                </Draggable>
               ))}
             </Droppable>
           </div>
