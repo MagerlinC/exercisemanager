@@ -7,8 +7,12 @@ export const getExercises = (onSnapShotFunc) => {
     .then((snapShot) => {
       const docs = [];
       snapShot.forEach((doc) => {
-        docs.push(doc.data());
+        const dataObj = doc.data();
+        dataObj["firestore_id"] = doc.id; // Helpful for updating data later
+        docs.push(dataObj);
       });
       onSnapShotFunc(docs);
     });
 };
+
+export const updateExerciseStatus = (exercise, status) => {};

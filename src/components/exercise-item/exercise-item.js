@@ -10,7 +10,9 @@ function ExerciseItem({ exercise, selected, onSelection }) {
       </div>
       <div className={"tags"}>
         {exercise.tags.map((tag) => (
-          <div className={"tag"}>{tag}</div>
+          <div key={exercise.id + tag} className={"tag"}>
+            {tag}
+          </div>
         ))}
       </div>
       <img className={"image"} alt="exercise-image" src={exercise.image} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
-import { getExercises } from "./exercise_service";
+import { getExercises, updateExerciseStatus } from "./exercise_service";
 import ExerciseItem from "./components/exercise-item/exercise-item";
 import { Droppable, Draggable, DragDropContext } from "react-virtualized-dnd";
 import Toaster from "./components/toaster/toaster";
@@ -44,7 +44,15 @@ function App() {
     setSelectedExercises(curExercises);
   };
 
-  const onExerciseDrag = (source, destinationDroppableId, placeholderId) => {};
+  const onExerciseDrag = (source, destinationDroppableId, placeholderId) => {
+    const status = destinationDroppableId === "my-list" ? "chosen" : "";
+    console.log(source);
+    updateExerciseStatus(source, status);
+  };
+
+  const onExerciseComplete = (exercise) => {
+    updateExerciseStatus("completed");
+  };
 
   const myList = [];
   const unselectedExercises = [];
@@ -113,7 +121,7 @@ function App() {
               {unselectedExercises.map((exercise) => (
                 <Draggable
                   dragAndDropGroup={dragAndDropGroupName}
-                  draggableId={"exercise-" + exercise.id}
+                  draggableId={exercise["firestore_id"]}
                   key={"exercise-" + exercise.id}
                   dragDisabled={false}
                 >
@@ -143,7 +151,7 @@ function App() {
               {myList.map((exercise) => (
                 <Draggable
                   dragAndDropGroup={dragAndDropGroupName}
-                  draggableId={"exercise-" + exercise.id}
+                  draggableId={exercise["firestore_id"]}
                   key={"exercise-" + exercise.id}
                   dragDisabled={false}
                 >
