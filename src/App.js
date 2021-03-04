@@ -83,11 +83,18 @@ function App() {
               key={myListDroppableId}
             >
               {myList.map((exercise) => (
-                <ExerciseItem
-                  key={"exercise-component-" + exercise.id}
-                  dragAndDropGroupName={dragAndDropGroupName}
-                  exercise={exercise}
-                />
+                <Draggable
+                  dragAndDropGroup={dragAndDropGroupName}
+                  draggableId={"exercise-" + exercise.id}
+                  key={"exercise-" + exercise.id}
+                  dragDisabled={false}
+                >
+                  <ExerciseItem
+                    key={"exercise-component-" + exercise.id}
+                    dragAndDropGroupName={dragAndDropGroupName}
+                    exercise={exercise}
+                  />
+                </Draggable>
               ))}
             </Droppable>
           </div>
