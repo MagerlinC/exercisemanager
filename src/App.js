@@ -46,12 +46,11 @@ function App() {
 
   const onExerciseDrag = (source, destinationDroppableId, placeholderId) => {
     const status = destinationDroppableId === "my-list" ? "chosen" : "";
-    console.log(source);
-    updateExerciseStatus(source, status);
+    updateExerciseStatus(source.draggableId, status);
   };
 
   const onExerciseComplete = (exercise) => {
-    updateExerciseStatus("completed");
+    updateExerciseStatus(exercise["firestore_id"], "completed");
   };
 
   const myList = [];
