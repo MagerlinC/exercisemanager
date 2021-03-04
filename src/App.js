@@ -154,7 +154,11 @@ function App() {
       {modalExercise && (
         <ExerciseModal exercise={modalExercise} closeModal={closeModal} />
       )}
-
+      {!modalExercise && (
+        <div title={"Create Exercise"} className={"create-exercise-btn"}>
+          <span className={"plus-icon"}>+</span>
+        </div>
+      )}
       <DragDropContext
         onDragEnd={onExerciseDrag}
         dragAndDropGroup={dragAndDropGroupName}

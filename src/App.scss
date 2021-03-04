@@ -1,5 +1,7 @@
 @import "node_modules/nord/src/sass/nord.scss";
 
+$check-green: #a5eb78;
+
 .app {
   font-family: "Rubik";
   .app-header {
@@ -20,6 +22,28 @@
       flex-grow: 1;
       text-align: left;
       margin-left: 18px;
+    }
+  }
+  .create-exercise-btn {
+    position: fixed;
+    z-index: 2;
+    bottom: 42px;
+    right: 42px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: $check-green;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.25);
+    }
+    .plus-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 36px;
     }
   }
   .lists-wrapper {
