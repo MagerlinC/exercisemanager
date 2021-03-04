@@ -15,6 +15,10 @@ export const getExercises = (onSnapShotFunc) => {
     });
 };
 
-export const updateExerciseStatus = (exerciseId, status) => {
-  return db.collection("exercises").doc(exerciseId).update({ status: status });
+export const updateExerciseStatus = (exerciseId, status, onSuccess) => {
+  return db
+    .collection("exercises")
+    .doc(exerciseId)
+    .update({ status: status })
+    .then(onSuccess);
 };

@@ -11,6 +11,7 @@ function App() {
   const [exercises, setExercises] = useState([]);
   const [searchFilter, setSearchFilter] = useState({ list: "", value: "" });
   const [selectedExercises, setSelectedExercises] = useState([]);
+  const [includeDone, setIncludeDone] = useState(true);
 
   const dragAndDropGroupName = "example";
   const exerciseListDroppableId = "exercise-list";
@@ -24,10 +25,7 @@ function App() {
   };
   // Fetch exercises on mount
   useEffect(() => {
-    getExercises((response) => {
-      const sortedResponse = response.sort(sortById);
-      setExercises(sortedResponse);
-    });
+    fetchData();
   }, []);
 
   const onExerciseSelection = (exercise) => {
@@ -44,13 +42,20 @@ function App() {
     setSelectedExercises(curExercises);
   };
 
+  const fetchData = () => {
+    getExercises((response) => {
+      const sortedResponse = response.sort(sortById);
+      setExercises(sortedResponse);
+    });
+  };
+
   const onExerciseDrag = (source, destinationDroppableId, placeholderId) => {
     const status = destinationDroppableId === "my-list" ? "chosen" : "";
-    updateExerciseStatus(source.draggableId, status);
+    updateExerciseStatus(source.draggableId, status, fetchData);
   };
 
   const onExerciseComplete = (exercise) => {
-    updateExerciseStatus(exercise["firestore_id"], "completed");
+    updateExerciseStatus(exercise["firestore_id"], "completed", fetchData);
   };
 
   const myList = [];
@@ -125,6 +130,7 @@ function App() {
                   dragDisabled={false}
                 >
                   <ExerciseItem
+                    onExerciseComplete={() => onExerciseComplete(exercise)}
                     selected={selectedExercises.find(
                       (e) => e.id === exercise.id
                     )}
@@ -155,6 +161,9 @@ function App() {
                   dragDisabled={false}
                 >
                   <ExerciseItem
+                    onExerciseComplete={() =>
+                      onExerciseComplete(exercise["firestore_id"])
+                    }
                     selected={selectedExercises.find(
                       (e) => e.id === exercise.id
                     )}

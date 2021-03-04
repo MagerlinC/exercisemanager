@@ -1,0 +1,13 @@
+@import "node_modules/nord/src/sass/nord.scss";
+.check-mark {
+  cursor: pointer;
+  width: 24px;
+  max-width: 24px;
+  max-height: 24px;
+  border-radius: 4px;
+  border: 1px solid $nord0;
+  .check-mark-icon {
+    width: 30px;
+    transform: translateY(-6px);
+  }
+}

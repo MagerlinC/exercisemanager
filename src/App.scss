@@ -5,7 +5,8 @@
   .app-header {
     display: flex;
     flex-direction: row;
-    background-color: $nord0;
+    background: #16316e;
+    background: linear-gradient(135deg, #16316e, #457ccf);
     display: flex;
     font-size: 48px;
     font-weight: bold;
