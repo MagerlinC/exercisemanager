@@ -1,0 +1,24 @@
+@import "node_modules/nord/src/sass/nord.scss";
+
+.app {
+  font-family: "Rubik";
+  .app-header {
+    background-color: $nord0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    font-weight: bold;
+    padding: 8px;
+    color: white;
+  }
+  .lists-wrapper {
+    display: flex;
+    flex-direction: row;
+    .exercise-list,
+    .my-list {
+      flex-grow: 0.5;
+    }
+  }
+}
