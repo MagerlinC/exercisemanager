@@ -3,9 +3,11 @@ import "./App.scss";
 import { getExercises } from "./exercise_service";
 import ExerciseItem from "./components/exercise-item/exercise-item";
 import { Droppable, Draggable, DragDropContext } from "react-virtualized-dnd";
+import Toaster from "./components/exercise-item/toaster/toaster";
 
 function App() {
   const [exercises, setExercises] = useState([]);
+  const [selectedExercises, setSelectedExercises] = useState([]);
 
   const dragAndDropGroupName = "example";
   const exerciseListDroppableId = "exercise-list";
@@ -21,6 +23,22 @@ function App() {
       setExercises(sortedResponse);
     });
   }, []);
+
+  const onExerciseSelection = (exercise) => {
+    console.log(exercise);
+    const curExercises = [...selectedExercises];
+    // Check if already selected
+    const existingIndex = curExercises.findIndex((e) => e.id === exercise.id);
+    console.log(existingIndex);
+    if (existingIndex >= 0) {
+      // If already selected, remove
+      curExercises.splice(existingIndex, 1);
+    } else {
+      // Else add
+      curExercises.push(exercise);
+    }
+    setSelectedExercises(curExercises);
+  };
 
   const onExerciseDrag = (source, destinationDroppableId, placeholderId) => {};
 
@@ -40,6 +58,10 @@ function App() {
 
   return (
     <div className="app">
+      <Toaster
+        shown={selectedExercises.length > 0}
+        contents={selectedExercises.length}
+      />
       <DragDropContext
         onDragEnd={onExerciseDrag}
         dragAndDropGroup={dragAndDropGroupName}
@@ -64,6 +86,10 @@ function App() {
                   dragDisabled={false}
                 >
                   <ExerciseItem
+                    selected={selectedExercises.find(
+                      (e) => e.id === exercise.id
+                    )}
+                    onSelection={() => onExerciseSelection(exercise)}
                     key={"exercise-component-" + exercise.id}
                     dragAndDropGroupName={dragAndDropGroupName}
                     exercise={exercise}
@@ -90,6 +116,10 @@ function App() {
                   dragDisabled={false}
                 >
                   <ExerciseItem
+                    selected={selectedExercises.find(
+                      (e) => e.id === exercise.id
+                    )}
+                    onSelection={() => onExerciseSelection(exercise)}
                     key={"exercise-component-" + exercise.id}
                     dragAndDropGroupName={dragAndDropGroupName}
                     exercise={exercise}
