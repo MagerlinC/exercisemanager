@@ -47,6 +47,7 @@ function App() {
   };
 
   const fetchData = () => {
+    setSelectedExercises([]);
     getExercises((response) => {
       const sortedResponse = response.sort(sortBySortOrder);
       setExercises(sortedResponse);
@@ -62,7 +63,7 @@ function App() {
     const movedExercise = getExerciseFromId(source.draggableId);
     const targetExercise = getExerciseFromId(placeholderId);
     // We want to know if we have moved an exercise from below or above the target
-    const movedUp = movedExercise.sortOrder > targetExercise.sortOrder;
+    const movedUp = movedExercise.sortOrder > targetExercise?.sortOrder;
     const status = sameCol
       ? null
       : destinationDroppableId === "my-list"
@@ -75,7 +76,7 @@ function App() {
     updateExercise(
       selectedItems,
       status,
-      targetExercise.sortOrder,
+      targetExercise?.sortOrder,
       movedUp,
       fetchData
     );
