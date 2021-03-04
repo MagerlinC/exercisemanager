@@ -7,6 +7,7 @@ import Toaster from "./components/toaster/toaster";
 import Logo from "./assets/logo.svg";
 import Search from "./components/search/search";
 import ExerciseModal from "./components/exercise-modal/exercise-modal";
+import Slider from "./components/slider/slider";
 
 function App() {
   const [exercises, setExercises] = useState([]);
@@ -100,13 +101,15 @@ function App() {
       exercise.title.toLowerCase().includes(searchFilter.value.toLowerCase()));
 
   exercises.forEach((exercise) => {
-    if (exercise.status === "chosen" || exercise.status === "completed") {
-      if (isMatchForFilter(exercise, myListName)) {
-        myList.push(exercise);
-      }
-    } else {
-      if (isMatchForFilter(exercise, exerciseListName)) {
-        unselectedExercises.push(exercise);
+    if (includeDone || exercise.status !== "completed") {
+      if (exercise.status === "chosen" || exercise.status === "completed") {
+        if (isMatchForFilter(exercise, myListName)) {
+          myList.push(exercise);
+        }
+      } else {
+        if (isMatchForFilter(exercise, exerciseListName)) {
+          unselectedExercises.push(exercise);
+        }
       }
     }
   });
@@ -123,6 +126,15 @@ function App() {
       <div className={"list-header " + listName}>
         <span className={"list-name"}>{listName}</span>
         <Search onSearchChange={(val) => onSearchChange(listName, val)} />
+        {listName === "My List" && (
+          <div className={"slider-and-title"}>
+            <div className={"title"}>Include Completed Exercises</div>
+            <Slider
+              isSet={includeDone}
+              onChange={() => setIncludeDone(!includeDone)}
+            />
+          </div>
+        )}
       </div>
     );
   };

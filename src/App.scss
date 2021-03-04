@@ -40,6 +40,16 @@
         margin-left: 18px;
         flex-grow: 1;
       }
+      .slider-and-title {
+        font-size: 14px;
+        margin: 0 18px;
+        display: flex;
+        flex-direction: row;
+        .title {
+          margin-right: 18px;
+          align-self: center;
+        }
+      }
     }
     .exercise-list,
     .my-list {
