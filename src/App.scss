@@ -49,6 +49,11 @@ $check-green: #a5eb78;
   .lists-wrapper {
     display: flex;
     flex-direction: row;
+    .empty-list {
+      padding: 8px 0;
+      font-style: italic;
+      color: #535353;
+    }
     .list-header {
       display: flex;
       flex-direction: row;

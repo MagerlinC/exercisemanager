@@ -144,6 +144,8 @@ function App() {
     setModalExercise(null);
   };
 
+  const listHeight = 1000;
+
   return (
     <div className="app">
       <Toaster
@@ -172,7 +174,7 @@ function App() {
             <Droppable
               listHeader={makeListHeader(exerciseListName)}
               listHeaderHeight={60}
-              containerHeight={1200}
+              containerHeight={listHeight}
               elemHeight={42}
               dragAndDropGroup={dragAndDropGroupName}
               droppableId={exerciseListDroppableId}
@@ -199,12 +201,19 @@ function App() {
                 </Draggable>
               ))}
             </Droppable>
+            {unselectedExercises.length === 0 && (
+              <div className={"empty-list"}>
+                {searchFilter.value && searchFilter.list === exerciseListName
+                  ? "No search results found for " + searchFilter.value
+                  : "No new exercises... Yet!"}
+              </div>
+            )}
           </div>
           <div className={"my-list"}>
             <Droppable
               listHeader={makeListHeader(myListName)}
               listHeaderHeight={60}
-              containerHeight={1200}
+              containerHeight={listHeight}
               elemHeight={42}
               dragAndDropGroup={dragAndDropGroupName}
               droppableId={myListDroppableId}
@@ -231,6 +240,13 @@ function App() {
                 </Draggable>
               ))}
             </Droppable>
+            {myList.length === 0 && (
+              <div className={"empty-list"}>
+                {searchFilter.value && searchFilter.list === myListName
+                  ? "No search results found for " + searchFilter.value
+                  : "No exercises in your list - grab some from the left!"}
+              </div>
+            )}
           </div>
         </div>
       </DragDropContext>
