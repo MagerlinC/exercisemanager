@@ -51,11 +51,15 @@ function App() {
 
   const onExerciseDrag = (source, destinationDroppableId, placeholderId) => {
     const status = destinationDroppableId === "my-list" ? "chosen" : "";
-    updateExerciseStatus(source.draggableId, status, fetchData);
+    // Move all selected items
+    const selectedItems = [source.draggableId].concat(
+      selectedExercises.map((exercise) => exercise["firestore_id"])
+    );
+    updateExerciseStatus(selectedItems, status, fetchData);
   };
 
   const onExerciseComplete = (exercise) => {
-    updateExerciseStatus(exercise["firestore_id"], "completed", fetchData);
+    updateExerciseStatus([exercise["firestore_id"]], "completed", fetchData);
   };
 
   const myList = [];

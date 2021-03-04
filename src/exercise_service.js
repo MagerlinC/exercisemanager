@@ -15,10 +15,11 @@ export const getExercises = (onSnapShotFunc) => {
     });
 };
 
-export const updateExerciseStatus = (exerciseId, status, onSuccess) => {
-  return db
-    .collection("exercises")
-    .doc(exerciseId)
-    .update({ status: status })
-    .then(onSuccess);
+export const updateExerciseStatus = (exerciseIds, status, onSuccess) => {
+  const batch = db.batch();
+  exerciseIds.forEach((exerciseId) => {
+    const docRef = db.collection("exercises").doc(exerciseId);
+    batch.update(docRef, { status: status });
+  });
+  batch.commit().then(onSuccess);
 };
