@@ -20,6 +20,11 @@ The drag-and-drop functionality uses my library [react-virtualized-dnd](https://
 
 **NOTE**: The framework also allows for movement of exercises within each list (moving one or more exercises up or down). This functionality could be used to prioritize or order exercises, but was not the focus of this exercise. It uses a very basic sort order number to order the task, and this gets updated when moving tasks up/down, but since it is simple numbers, collisions can occur, resulting in tasks ending up in a different order on arrival, especially for multi-drag. There are some pretty cool ways to solve this problem, but I did not wish to spend my time there for this project.
 
+## Components
+
+Each and every component used in this app (dropdowns, checkmarks, sliders etc.) were made by me as part of this project. No previous or external code was used.
+These types of components are obviously available from a myriad of external sources, but I enjoyed coding them myselves, so why not :)
+
 ## Data Storage
 
 The database uses simple JSON document storage, and contains nothing but a collection called 'exercises', which has exercises represented as firestore documents within the collection.
