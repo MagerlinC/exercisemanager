@@ -37,8 +37,8 @@ button {
   .create-exercise-btn {
     position: fixed;
     z-index: 2;
-    bottom: 42px;
-    right: 42px;
+    bottom: 2%;
+    right: 2%;
     width: 60px;
     height: 60px;
     border-radius: 4px;
@@ -96,5 +96,29 @@ button {
       flex: 1;
       margin: 18px;
     }
+  }
+}
+
+// Mobile styling
+@media only screen and (max-width: 600px) {
+  .site-logo {
+    width: 64px !important;
+  }
+  .lists-wrapper {
+    flex-direction: column !important;
+    .list-name {
+      white-space: nowrap;
+    }
+  }
+  .slider-and-title {
+    margin-left: 4px !important;
+    .title {
+      display: none;
+    }
+    .slider {
+      margin: 4px 8px;
+    }
+    display: flex;
+    flex-direction: column !important;
   }
 }
