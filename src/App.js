@@ -155,7 +155,8 @@ function App() {
     fetchData();
   };
 
-  // Napkin math, lists should allow half height if CSS breakpoint triggers to do flex: col on mobile
+  // Napkin math, lists should allow half height if CSS breakpoint triggers to do flex: col on mobile, since the lists will now be above each other.
+  // More accurate calcs could be made if we considered the list header etc.
   const isMobile = window.innerWidth <= 600;
   const listHeight = (window.innerHeight - 200) / (isMobile ? 2 : 1);
 
