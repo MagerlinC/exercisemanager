@@ -1,8 +1,35 @@
-# Getting Started with Create React App
+# Project Setup
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+It consists of a React app connecting to a firebase environment for hosting and database, using the Firestore document DB.
+
+# The App
+
+The app presents a simple prototype of a simple webpage showing a list of selectable exercises that can be searched and filtered. One or more exercises can be selected for drag-and-drop by the user, moving exercises into their list ("My List") of exercises they want to complete, and can also be marked as completed. "My List" shows a summary of all exercises selected this way. When selecting multiple exercises for drag-and-drop, a small toaster comes up summarizing the amount of tasks selected.
+
+Each exercise can be selected for further inspection by opening the exercise modal via a click on its title.
+
+Exercises can be searched for using the search inputs, and exercises already completed can be filtered away by using the slider over "My List" (completed exercises will always be shown under "My List" - a completed exercise means you have chosen to do it AND done it).
+
+New exercises can be created using the exercise creation modal, opened by clicking the green plus icon in the bottom right of the screen.
+
+## Drag-and-drop
+
+The drag-and-drop functionality uses my library [react-virtualized-dnd](https://www.npmjs.com/package/react-virtualized-dnd). I implemented this mostly for the drag-and-drop functionality, but it will also virtualize if the list of exercises gets big enough.
+
+**NOTE**: The framework also allows for movement of exercises within each list (moving one or more exercises up or down). This functionality could be used to prioritize or order exercises, but was not the focus of this exercise. It uses a very basic sort order number to order the task, and this gets updated when moving tasks up/down, but since it is simple numbers, collisions can occur, resulting in tasks ending up in a different order on arrival, especially for multi-drag. There are some pretty cool ways to solve this problem, but I did not wish to spend my time there for this project.
+
+## Data Storage
+
+The database uses simple JSON document storage, and contains nothing but a collection called 'exercises', which has exercises represented as firestore documents within the collection.
+Each document contains meta-data about the exercise, such as the title, difficulty, image, tags, and the status of the exercise, indicating whether the exercise has been chosen or completed (or neither).
+
+# Testing
+
+I have not constructed tests for the app, as it is a fairly simple CRUD web-app with next to no business logic. A cool way to test it would be to use Cypress.io to do front-end testing for the drag-and-drop and updating of exercises, but this takes a bit more setup.
+
+## Running the code
 
 In the project directory, you can run:
 
@@ -13,59 +40,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# exercisemanager" 
