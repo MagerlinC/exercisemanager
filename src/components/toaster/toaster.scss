@@ -1,0 +1,15 @@
+@import "node_modules/nord/src/sass/nord.scss";
+.toaster {
+  position: fixed;
+  .toaster-pop-up {
+    padding: 8px;
+    z-index: 2;
+    font-size: 24px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid $nord0;
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+  }
+}

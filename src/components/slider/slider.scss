@@ -1,0 +1,28 @@
+@import "node_modules/nord/src/sass/nord.scss";
+@import "variables.scss";
+.slider {
+  position: relative;
+  .slider-elements {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .slider-bar {
+    height: 12px;
+    border-radius: 4px;
+    background-color: $nord3;
+  }
+  .slider-orb {
+    top: -2px;
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    background-color: $nord4;
+    transition: all 0.5s;
+    &.set {
+      background-color: $check-green;
+    }
+  }
+}

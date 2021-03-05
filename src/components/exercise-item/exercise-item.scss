@@ -1,0 +1,37 @@
+@import "node_modules/nord/src/sass/nord.scss";
+.exercise-item {
+  margin: 1px 0 1px 0;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  border: 1px solid $nord0;
+  &.selected {
+    background-color: $nord9;
+  }
+  .id-and-title {
+    flex-grow: 1;
+    .title {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .image {
+    width: 24px;
+    flex-grow: 0;
+    margin-right: 4px;
+  }
+  .tags {
+    display: flex;
+    flex-direction: row;
+    .tag {
+      font-size: 12px;
+      padding: 4px;
+      margin: 0 4px;
+      border-radius: 4px;
+      background-color: $nord13;
+    }
+  }
+}
