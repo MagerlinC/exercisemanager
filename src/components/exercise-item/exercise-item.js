@@ -25,7 +25,11 @@ function ExerciseItem({
         (selected ? " selected" : "") +
         (completed ? " completed" : "")
       }
-      onClick={completed ? void 0 : onSelection}
+      onClick={
+        completed
+          ? () => alert("Can't select or move completed tasks")
+          : onSelection
+      }
     >
       <div className={"id-and-title"}>
         <span className={"title"} onClick={openExercise} tabIndex="0">
