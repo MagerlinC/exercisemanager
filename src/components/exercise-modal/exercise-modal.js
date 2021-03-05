@@ -98,7 +98,7 @@ function ExerciseModal({ creationMode, createTask, exercise, closeModal }) {
                   exerciseTitle,
                   exerciseDifficulty,
                   exerciseDescription,
-                  exerciseTags
+                  exerciseTags.split(",")
                 )
               }
               className={"create-btn"}

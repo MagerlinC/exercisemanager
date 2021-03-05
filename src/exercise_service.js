@@ -1,8 +1,10 @@
 import { db } from "./firebase.js";
 
+const exerciseCollection = "exercises";
+
 export const getExercises = (onSnapShotFunc) => {
   return db
-    .collection("exercises")
+    .collection(exerciseCollection)
     .get()
     .then((snapShot) => {
       const docs = [];
@@ -28,7 +30,7 @@ export const updateExercise = (
     targetSortOrder + (movedUp ? -1 * exerciseIds.length : exerciseIds.length);
 
   exerciseIds.forEach((exerciseId) => {
-    const docRef = db.collection("exercises").doc(exerciseId);
+    const docRef = db.collection(exerciseCollection).doc(exerciseId);
     if (status != null) {
       batch.update(docRef, { status: status });
     }
@@ -39,4 +41,27 @@ export const updateExercise = (
     }
   });
   batch.commit().then(onSuccess);
+};
+
+// Generate image based on difficulty
+const getImage = (difficulty) =>
+  "https://app.minlaering.dk/images/icons/exercise/difficulty" +
+  difficulty +
+  ".svg";
+
+export const createExercise = (
+  exerciseTitle,
+  exerciseDifficulty,
+  exerciseDescription,
+  exerciseTags
+) => {
+  return db.collection(exerciseCollection).add({
+    title: exerciseTitle,
+    difficulty: exerciseDifficulty,
+    description: exerciseDescription,
+    image: getImage(exerciseDifficulty),
+    tags: exerciseTags,
+    status: "",
+    sortOrder: 1000, // Todo, what do we want here?
+  });
 };

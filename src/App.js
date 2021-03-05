@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
-import { getExercises, updateExercise } from "./exercise_service";
+import {
+  createExercise,
+  getExercises,
+  updateExercise,
+} from "./exercise_service";
 import ExerciseItem from "./components/exercise-item/exercise-item";
 import { Droppable, Draggable, DragDropContext } from "react-virtualized-dnd";
 import Toaster from "./components/toaster/toaster";
@@ -160,6 +164,7 @@ function App() {
       {createModalOpen && (
         <ExerciseModal
           closeModal={() => setCreateModalOpen(false)}
+          createTask={createExercise}
           creationMode={true}
         />
       )}
