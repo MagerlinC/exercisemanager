@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./exercise-modal.scss";
 
-function ExerciseModal({ creationMode, createTask, exercise, closeModal }) {
+function ExerciseModal({ creationMode, createExercise, exercise, closeModal }) {
   const modalRef = useRef();
   const [exerciseTitle, setExerciseTitle] = useState("");
   const [exerciseDifficulty, setExerciseDifficulty] = useState("");
@@ -94,7 +94,7 @@ function ExerciseModal({ creationMode, createTask, exercise, closeModal }) {
           {creationMode && (
             <button
               onClick={() =>
-                createTask(
+                createExercise(
                   exerciseTitle,
                   exerciseDifficulty,
                   exerciseDescription,

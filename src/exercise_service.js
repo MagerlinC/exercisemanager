@@ -49,19 +49,40 @@ const getImage = (difficulty) =>
   difficulty +
   ".svg";
 
+const getNewExerciseId = (onNumberFound) => {
+  const ids = [];
+  db.collection(exerciseCollection)
+    .get()
+    .then((snapShot) => {
+      snapShot.forEach((doc) => {
+        const dataObj = doc.data();
+        ids.push(dataObj.id);
+      });
+      ids.sort();
+      // Return largest ids
+      onNumberFound(ids[ids.length - 1] + 1);
+    });
+};
+
 export const createExercise = (
   exerciseTitle,
   exerciseDifficulty,
   exerciseDescription,
-  exerciseTags
+  exerciseTags,
+  onSuccess
 ) => {
-  return db.collection(exerciseCollection).add({
-    title: exerciseTitle,
-    difficulty: exerciseDifficulty,
-    description: exerciseDescription,
-    image: getImage(exerciseDifficulty),
-    tags: exerciseTags,
-    status: "",
-    sortOrder: 1000, // Todo, what do we want here?
+  getNewExerciseId((number) => {
+    db.collection(exerciseCollection)
+      .add({
+        id: number,
+        title: exerciseTitle,
+        difficulty: exerciseDifficulty,
+        description: exerciseDescription,
+        image: getImage(exerciseDifficulty),
+        tags: exerciseTags,
+        status: "",
+        sortOrder: 1000, // Todo, what do we want here?
+      })
+      .then(onSuccess);
   });
 };

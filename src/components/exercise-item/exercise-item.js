@@ -28,7 +28,6 @@ function ExerciseItem({
       onClick={completed ? void 0 : onSelection}
     >
       <div className={"id-and-title"}>
-        <span className={"id"}>{exercise.id}</span> -{" "}
         <span className={"title"} onClick={openExercise} tabIndex="0">
           {exercise.title}
         </span>

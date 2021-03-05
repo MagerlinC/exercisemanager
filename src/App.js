@@ -147,6 +147,12 @@ function App() {
 
   const closeModal = () => {
     setModalExercise(null);
+    setCreateModalOpen(false);
+  };
+
+  const onExerciseCreationSuccess = () => {
+    closeModal();
+    fetchData();
   };
 
   const listHeight = 1000;
@@ -164,7 +170,20 @@ function App() {
       {createModalOpen && (
         <ExerciseModal
           closeModal={() => setCreateModalOpen(false)}
-          createTask={createExercise}
+          createExercise={(
+            exerciseTitle,
+            exerciseDifficulty,
+            exerciseDescription,
+            exerciseTags
+          ) =>
+            createExercise(
+              exerciseTitle,
+              exerciseDifficulty,
+              exerciseDescription,
+              exerciseTags,
+              onExerciseCreationSuccess
+            )
+          }
           creationMode={true}
         />
       )}
