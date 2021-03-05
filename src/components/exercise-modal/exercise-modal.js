@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Dropdown from "../dropdown/dropdown";
 import "./exercise-modal.scss";
 
 function ExerciseModal({ creationMode, createExercise, exercise, closeModal }) {
@@ -14,16 +15,31 @@ function ExerciseModal({ creationMode, createExercise, exercise, closeModal }) {
     }
   }, []);
 
-  const closeOnEscape = (e) => {
+  const submitCreation = () => {
+    if (exerciseTitle) {
+      createExercise(
+        exerciseTitle,
+        exerciseDifficulty == null ? 1 : exerciseDifficulty,
+        exerciseDescription,
+        exerciseTags.split(",")
+      );
+    } else {
+      alert("Can't create an exercise without a title");
+    }
+  };
+
+  const handleModalKeyDown = (e) => {
     if (e.key === "Escape") {
       closeModal();
+    } else if (creationMode && e.key === "Enter") {
+      submitCreation();
     }
   };
 
   return (
     <div
       tabIndex="-1"
-      onKeyDown={closeOnEscape}
+      onKeyDown={handleModalKeyDown}
       ref={modalRef}
       className={"modal-fullscreen-wrapper"}
     >
@@ -46,10 +62,11 @@ function ExerciseModal({ creationMode, createExercise, exercise, closeModal }) {
             </span>
           )}
           {creationMode ? (
-            <input
-              placeholder="Exercise difficulty"
-              value={exerciseDifficulty}
-              onChange={(e) => setExerciseDifficulty(parseInt(e.target.value))}
+            <Dropdown
+              selectedItem={exerciseDifficulty}
+              closedText="Exercise difficulty"
+              dropdownItems={[1, 2, 3]}
+              onSelect={(item) => setExerciseDifficulty(parseInt(item))}
               className={"difficulty-input"}
             />
           ) : (
@@ -92,17 +109,7 @@ function ExerciseModal({ creationMode, createExercise, exercise, closeModal }) {
             </div>
           )}
           {creationMode && (
-            <button
-              onClick={() =>
-                createExercise(
-                  exerciseTitle,
-                  exerciseDifficulty,
-                  exerciseDescription,
-                  exerciseTags.split(",")
-                )
-              }
-              className={"create-btn"}
-            >
+            <button onClick={submitCreation} className={"create-btn"}>
               Create Exercise
             </button>
           )}
