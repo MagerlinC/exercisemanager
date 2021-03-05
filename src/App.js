@@ -155,7 +155,9 @@ function App() {
     fetchData();
   };
 
-  const listHeight = 1000;
+  // Napkin math, lists should allow half height if CSS breakpoint triggers to do flex: col on mobile
+  const isMobile = window.innerWidth <= 600;
+  const listHeight = (window.innerHeight - 200) / (isMobile ? 2 : 1);
 
   return (
     <div className="app">
