@@ -1,8 +1,10 @@
 # Project Setup
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a coding exercise given by MinLæring as part of their job interview process. It was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 It consists of a React app connecting to a firebase environment for hosting and database, using the Firestore document DB.
+
+The website is hosted at https://exercisemanager-35041.web.app/
 
 # The App
 
