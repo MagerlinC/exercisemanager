@@ -34,7 +34,9 @@ Each document contains meta-data about the exercise, such as the title, difficul
 
 # Testing
 
-I have not constructed tests for the app, as it is a fairly simple CRUD web-app with next to no business logic. A cool way to test it would be to use Cypress.io to do front-end testing for the drag-and-drop and updating of exercises, but this takes a bit more setup.
+I have not constructed tests for the app, as it is a fairly simple serverless web-app with next to no business logic. A cool way to test it would be to use Cypress.io to do front-end testing for the drag-and-drop and updating of exercises, but this takes a bit more setup.
+
+The CRUD operations could be tested through a javascript testing framework like Jest. An example test could be assessing that the total amount of exercises increases by one when an exercise is created. 
 
 ## Running the code
 
