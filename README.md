@@ -20,7 +20,7 @@ New exercises can be created using the exercise creation modal, opened by clicki
 
 The drag-and-drop functionality uses my library [react-virtualized-dnd](https://www.npmjs.com/package/react-virtualized-dnd). I implemented this mostly for the drag-and-drop functionality, but it will also virtualize if the list of exercises gets big enough.
 
-**NOTE**: The framework also allows for movement of exercises within each list (moving one or more exercises up or down). This functionality could be used to prioritize or order exercises, but was not the focus of this exercise. It currently works, but uses a very basic sort order number to order the exercises, and this gets updated when moving exercises up/down, but since it is simple numbers, collisions can occur, resulting in exercises ending up in a different order on arrival, especially for multi-drag. There are some pretty cool ways to solve this problem, but I did not wish to spend my time here for this project.
+**NOTE**: The framework also allows for movement of exercises within each list (moving one or more exercises up or down). This functionality could be used to prioritize or order exercises, but was not the focus of this exercise. It currently works, but uses a very basic sort order number to order the exercises, and this gets updated when moving exercises up/down, but since it is simple numbers, collisions can occur, resulting in exercises ending up in a different order on arrival, especially for multi-drag. This is a more complicated concept than one would think, but there are some pretty cool ways to solve this problem. However, I did not wish to spend my time here for this project.
 
 ## Components
 
