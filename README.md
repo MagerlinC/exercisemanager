@@ -10,7 +10,7 @@ The website is hosted at https://exercisemanager-35041.web.app/
 
 The app presents a simple prototype of a simple webpage showing a list of selectable exercises that can be searched and filtered. One or more exercises can be selected for drag-and-drop by the user, moving exercises into their list ("My List") of exercises they want to complete, and can also be marked as completed. "My List" shows a summary of all exercises selected this way. When selecting multiple exercises for drag-and-drop, a small toaster comes up summarizing the amount of tasks selected.
 
-Each exercise can be selected for further inspection by opening the exercise modal via a click on its title.
+Each exercise can be selected for further inspection by opening the exercise modal via a click on the title of the exercise.
 
 Exercises can be searched for using the search inputs, and exercises already completed can be filtered away by using the slider over "My List" (completed exercises will always be shown under "My List" - a completed exercise means you have chosen to do it AND done it).
 
