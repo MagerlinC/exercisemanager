@@ -25,7 +25,7 @@ The drag-and-drop functionality uses my library [react-virtualized-dnd](https://
 ## Components
 
 Each and every component used in this app (dropdowns, checkmarks, sliders etc.) were made by me as part of this project. No previous or external code was used.
-These types of components are obviously available from a myriad of external sources, but I enjoyed coding them myselves, so why not :)
+These types of components are obviously available from a myriad of external sources, but I needed very simple versions, and I enjoyed coding them myselves, so why not :)
 
 ## Data Storage
 
