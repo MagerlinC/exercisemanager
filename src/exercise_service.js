@@ -58,8 +58,9 @@ const getNewExerciseId = (onNumberFound) => {
         const dataObj = doc.data();
         ids.push(dataObj.id);
       });
-      ids.sort();
+      ids.sort((a, b) => a - b);
       // Return largest ids
+      console.log(ids);
       onNumberFound(ids[ids.length - 1] + 1);
     });
 };

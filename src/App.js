@@ -229,7 +229,7 @@ function App() {
                     onExerciseOpen={openExercise}
                     onExerciseComplete={() => onExerciseComplete(exercise)}
                     selected={selectedExercises.find(
-                      (e) => e.id === exercise.id
+                      (e) => e["firestore_id"] === exercise["firestore_id"]
                     )}
                     onSelection={() => onExerciseSelection(exercise)}
                     key={"exercise-component-" + exercise.id}
@@ -268,7 +268,7 @@ function App() {
                     onExerciseOpen={openExercise}
                     onExerciseComplete={() => onExerciseComplete(exercise)}
                     selected={selectedExercises.find(
-                      (e) => e.id === exercise.id
+                      (e) => e["firestore_id"] === exercise["firestore_id"]
                     )}
                     onSelection={() => onExerciseSelection(exercise)}
                     key={"exercise-component-" + exercise.id}

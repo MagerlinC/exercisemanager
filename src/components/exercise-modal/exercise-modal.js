@@ -16,7 +16,7 @@ function ExerciseModal({ creationMode, createExercise, exercise, closeModal }) {
   }, []);
 
   const submitCreation = () => {
-    if (exerciseTitle) {
+    if (exerciseTitle && exerciseDifficulty) {
       createExercise(
         exerciseTitle,
         exerciseDifficulty == null ? 1 : exerciseDifficulty,
@@ -24,7 +24,7 @@ function ExerciseModal({ creationMode, createExercise, exercise, closeModal }) {
         exerciseTags.split(",")
       );
     } else {
-      alert("Can't create an exercise without a title");
+      alert("Can't create an exercise without a title & difficulty");
     }
   };
 
